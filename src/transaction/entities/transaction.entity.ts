@@ -9,9 +9,12 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  artistName: string;
 
   @Column()
   firstName: string;
@@ -23,10 +26,10 @@ export class User {
   email: string;
 
   @Column()
-  password: string;
+  bankName: string;
 
   @Column()
-  salt: string;
+  accountNumber: string;
 
   @Column({ default: true })
   isActive: boolean;

@@ -1,18 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { EntityNotFoundError, Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { Transaction } from './entities/transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class UsersService {
+export class TransactionService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(Transaction)
+    private usersRepository: Repository<Transaction>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateTransactionDto) {
     const result = await this.usersRepository.insert(createUserDto);
 
     return this.usersRepository.findOneOrFail(result.identifiers[0].id);
@@ -40,53 +40,7 @@ export class UsersService {
     }
   }
 
-  async findOneByEmail(email: string) {
-    try {
-      return this.usersRepository.findOneOrFail({
-        where: {
-          email: email,
-        },
-      });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
-        throw new HttpException(
-          {
-            statusCode: HttpStatus.NOT_FOUND,
-            message: 'User not found',
-          },
-          HttpStatus.NOT_FOUND,
-        );
-      } else {
-        throw e;
-      }
-    }
-  }
-
-  async findOneByUsernameOrEmail(usernameOrEmail: string) {
-    try {
-      const user = await this.usersRepository.findOneOrFail({
-        where: { email: usernameOrEmail },
-      });
-
-      return {
-        user,
-      };
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
-        throw new HttpException(
-          {
-            statusCode: HttpStatus.NOT_FOUND,
-            message: 'User not found',
-          },
-          HttpStatus.NOT_FOUND,
-        );
-      } else {
-        throw e;
-      }
-    }
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateTransactionDto) {
     try {
       await this.usersRepository.findOneOrFail(id);
     } catch (e) {

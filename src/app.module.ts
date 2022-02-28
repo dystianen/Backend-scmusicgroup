@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { LoggerModule } from 'nestjs-pino';
 import configuration from './config/configuration';
+import { TransactionModule } from './transaction/transaction.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -44,7 +46,9 @@ import configuration from './config/configuration';
       },
       inject: [ConfigService],
     }),
+    AuthModule,
     UsersModule,
+    TransactionModule,
   ],
 })
 export class AppModule {}
