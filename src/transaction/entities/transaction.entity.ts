@@ -31,8 +31,14 @@ export class Transaction {
   @Column()
   accountNumber: string;
 
+  @Column()
+  accountName: string;
+
+  @Column()
+  phone: string;
+
   @Column({ default: true })
-  isActive: boolean;
+  status: boolean;
 
   @CreateDateColumn({
     type: 'timestamp with time zone',

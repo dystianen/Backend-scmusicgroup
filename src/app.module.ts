@@ -46,9 +46,9 @@ import { AuthModule } from './auth/auth.module';
       },
       inject: [ConfigService],
     }),
-    AuthModule,
     UsersModule,
     TransactionModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

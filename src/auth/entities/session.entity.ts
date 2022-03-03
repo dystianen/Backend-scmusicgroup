@@ -2,13 +2,10 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
-  VersionColumn,
   CreateDateColumn,
   ManyToOne,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
+import { User } from './../../users/entities/user.entity';
 
 @Entity()
 export class Session {

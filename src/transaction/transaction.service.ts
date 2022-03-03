@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import * as uuid from 'uuid';
+import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { EntityNotFoundError, Repository } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,10 +14,21 @@ export class TransactionService {
     private usersRepository: Repository<Transaction>,
   ) {}
 
-  async create(createUserDto: CreateTransactionDto) {
-    const result = await this.usersRepository.insert(createUserDto);
+  async create(createTransactionDto: CreateTransactionDto) {
+    const dataTransaction = new Transaction();
 
-    return this.usersRepository.findOneOrFail(result.identifiers[0].id);
+    dataTransaction.id = uuid.v4();
+    dataTransaction.artistName = createTransactionDto.artistName;
+    dataTransaction.firstName = createTransactionDto.firstName;
+    dataTransaction.lastName = createTransactionDto.lastName;
+    dataTransaction.email = createTransactionDto.email;
+    dataTransaction.bankName = createTransactionDto.bankName;
+    dataTransaction.accountNumber = createTransactionDto.accountNumber;
+    dataTransaction.accountName = createTransactionDto.accountName;
+    dataTransaction.phone = createTransactionDto.phone;
+    dataTransaction.status = true;
+
+    return await this.usersRepository.insert(dataTransaction);
   }
 
   findAll() {
@@ -57,7 +70,7 @@ export class TransactionService {
       }
     }
 
-    const result = await this.usersRepository.update(id, updateUserDto);
+    // const result = await this.usersRepository.update(id);
 
     return this.usersRepository.findOneOrFail(id);
   }

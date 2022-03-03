@@ -2,13 +2,13 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateTransactionDto {
   @IsNotEmpty()
+  artistName: string;
+
+  @IsNotEmpty()
   firstName: string;
 
   @IsNotEmpty()
   lastName: string;
-
-  @IsNotEmpty()
-  artistName: string;
 
   @IsNotEmpty()
   email: string;
@@ -18,4 +18,13 @@ export class CreateTransactionDto {
 
   @IsNotEmpty()
   accountNumber: string;
+
+  @IsNotEmpty()
+  accountName: string;
+
+  @IsNotEmpty()
+  phone: string;
+
+  @IsNotEmpty()
+  status: string;
 }
