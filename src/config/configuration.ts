@@ -1,6 +1,7 @@
 export default () => {
   return {
     port: parseInt(process.env.PORT, 10) || 3000,
+    secret: process.env.SECRET,
     database: {
       client: process.env.DATABASE_CLIENT,
       host: process.env.DATABASE_HOST,

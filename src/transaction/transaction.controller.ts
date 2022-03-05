@@ -8,6 +8,7 @@ import {
   Delete,
   ParseUUIDPipe,
   HttpStatus,
+  UseGuards
 } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -17,12 +18,12 @@ import { UpdateTransactionDto } from './dto/update-transaction.dto';
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
-  @Post('/')
+  @Post('')
   async create(@Body() createTransactionDto: CreateTransactionDto) {
     return {
       data: await this.transactionService.create(createTransactionDto),
       statusCode: HttpStatus.CREATED,
-      message: 'success',
+      message: 'Success Create Transaction',
     };
   }
 
@@ -50,10 +51,13 @@ export class TransactionController {
   @Put(':id')
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateUserDto: UpdateTransactionDto,
+    @Body() updateTransactionDto: UpdateTransactionDto,
   ) {
     return {
-      data: await this.transactionService.update(id, updateUserDto),
+      data: await this.transactionService.updateTransaction(
+        id,
+        updateTransactionDto,
+      ),
       statusCode: HttpStatus.OK,
       message: 'success',
     };

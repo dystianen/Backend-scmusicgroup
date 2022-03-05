@@ -26,5 +26,5 @@ export class CreateTransactionDto {
   phone: string;
 
   @IsNotEmpty()
-  status: string;
+  status: boolean;
 }

@@ -11,7 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class TransactionService {
   constructor(
     @InjectRepository(Transaction)
-    private usersRepository: Repository<Transaction>,
+    private transactionRepository: Repository<Transaction>,
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto) {
@@ -28,16 +28,22 @@ export class TransactionService {
     dataTransaction.phone = createTransactionDto.phone;
     dataTransaction.status = true;
 
-    return await this.usersRepository.insert(dataTransaction);
+    await this.transactionRepository.insert(dataTransaction);
   }
 
+  // async findTransaction() {
+  //   const transaction = this.transactionRepository
+  //       .createQueryBuilder('transaction')
+  //       .
+  // }
+
   findAll() {
-    return this.usersRepository.findAndCount();
+    return this.transactionRepository.findAndCount();
   }
 
   async findOne(id: string) {
     try {
-      return await this.usersRepository.findOneOrFail(id);
+      return await this.transactionRepository.findOneOrFail(id);
     } catch (e) {
       if (e instanceof EntityNotFoundError) {
         throw new HttpException(
@@ -53,9 +59,12 @@ export class TransactionService {
     }
   }
 
-  async update(id: string, updateUserDto: UpdateTransactionDto) {
+  async updateTransaction(
+    id: string,
+    updateTransactionDto: UpdateTransactionDto,
+  ) {
     try {
-      await this.usersRepository.findOneOrFail(id);
+      await this.transactionRepository.findOneOrFail(id);
     } catch (e) {
       if (e instanceof EntityNotFoundError) {
         throw new HttpException(
@@ -70,14 +79,14 @@ export class TransactionService {
       }
     }
 
-    // const result = await this.usersRepository.update(id);
+    await this.transactionRepository.update(id, updateTransactionDto);
 
-    return this.usersRepository.findOneOrFail(id);
+    return this.transactionRepository.findOneOrFail(id);
   }
 
   async remove(id: string) {
     try {
-      await this.usersRepository.findOneOrFail(id);
+      await this.transactionRepository.findOneOrFail(id);
     } catch (e) {
       if (e instanceof EntityNotFoundError) {
         throw new HttpException(
@@ -92,6 +101,6 @@ export class TransactionService {
       }
     }
 
-    await this.usersRepository.delete(id);
+    await this.transactionRepository.delete(id);
   }
 }
