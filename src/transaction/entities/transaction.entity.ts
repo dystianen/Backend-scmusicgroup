@@ -35,28 +35,31 @@ export class Transaction {
   accountName: string;
 
   @Column()
+  amount: string;
+
+  @Column()
   phone: string;
 
   @Column({ default: true })
   status: boolean;
 
-  @CreateDateColumn({
-    type: 'timestamp with time zone',
-    nullable: false,
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp with time zone',
-    nullable: false,
-  })
-  updatedAt: Date;
-
-  @DeleteDateColumn({
-    type: 'timestamp with time zone',
-    nullable: true,
-  })
-  deletedAt: Date;
+  // @CreateDateColumn({
+  //   type: 'timestamp with time zone',
+  //   nullable: false,
+  // })
+  // createdAt: Date;
+  //
+  // @UpdateDateColumn({
+  //   type: 'timestamp with time zone',
+  //   nullable: false,
+  // })
+  // updatedAt: Date;
+  //
+  // @DeleteDateColumn({
+  //   type: 'timestamp with time zone',
+  //   nullable: true,
+  // })
+  // deletedAt: Date;
 
   @VersionColumn()
   version: number;

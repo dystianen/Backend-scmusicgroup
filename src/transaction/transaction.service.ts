@@ -26,6 +26,7 @@ export class TransactionService {
     dataTransaction.accountNumber = createTransactionDto.accountNumber;
     dataTransaction.accountName = createTransactionDto.accountName;
     dataTransaction.phone = createTransactionDto.phone;
+    dataTransaction.amount = createTransactionDto.amount;
     dataTransaction.status = true;
 
     await this.transactionRepository.insert(dataTransaction);

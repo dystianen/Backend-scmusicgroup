@@ -23,6 +23,9 @@ export class CreateTransactionDto {
   accountName: string;
 
   @IsNotEmpty()
+  amount: string;
+
+  @IsNotEmpty()
   phone: string;
 
   @IsNotEmpty()

@@ -31,7 +31,7 @@ export class AuthService {
 
   async login(loginUserDto: LoginUserDto) {
     const { user } = await this.usersService.findOneByUsernameOrEmail(
-      loginUserDto.username,
+      loginUserDto.email,
     );
 
     if (
@@ -71,6 +71,7 @@ export class AuthService {
     };
 
     return {
+      username: user.username,
       access_token: this.jwtService.sign(payload),
       refresh_token: sessionData.refresh_token,
     };

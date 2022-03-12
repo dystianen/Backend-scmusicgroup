@@ -81,10 +81,10 @@ export class UsersService {
     }
   }
 
-  async findOneByUsernameOrEmail(username: string) {
+  async findOneByUsernameOrEmail(email: string) {
     try {
       const user = await this.usersRepository.findOneOrFail({
-        where: { username: username },
+        where: { email: email },
       });
 
       return {
